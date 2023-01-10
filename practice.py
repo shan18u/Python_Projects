@@ -1,4 +1,7 @@
-from curses import wrapper
+from curses 
+import wrapper
+import queue
+import time
 
 
 maze = [
@@ -24,3 +27,26 @@ def print_maze(maze, stdscr, path=[]):
                 stdscr.addstr(i, j*2, value, BLUE)
 
 
+
+def find_start(maze, start):
+    for i, row in enumerate(maze):
+        for j, value in enumerate(row):
+            if value == start:
+                return i, j
+
+    return None
+
+
+def find_neighbors(maze, row, col):
+    neighbors = []
+
+    if row > 0:  # UP
+        neighbors.append((row - 1, col))
+    if row + 1 < len(maze):  # DOWN
+        neighbors.append((row + 1, col))
+    if col > 0:  # LEFT
+        neighbors.append((row, col - 1))
+    if col + 1 < len(maze[0]):  # RIGHT
+        neighbors.append((row, col + 1))
+
+    return neighbors
